@@ -35,78 +35,19 @@ const useStyles = makeStyles((theme) => ({
 	}
 }));
 
-// export default function SignIn() {
-//   const classes = useStyles();
+const Login = ({ googleOAuthLogin, auth , googleOAuthLogout}) => {
 
-//   return (
-//     <Container component="main" maxWidth="xs">
-//       <CssBaseline />
-//       <div className={classes.paper}>
-//         <Avatar className={classes.avatar}>
-//           <LockOutlinedIcon />
-//         </Avatar>
-//         <Typography component="h1" variant="h5">
-//           Sign in
-//         </Typography>
-//         <form className={classes.form} noValidate>
-//           <TextField
-//             variant="outlined"
-//             margin="normal"
-//             required
-//             fullWidth
-//             id="email"
-//             label="Email Address"
-//             name="email"
-//             autoComplete="email"
-//             autoFocus
-//           />
-//           <TextField
-//             variant="outlined"
-//             margin="normal"
-//             required
-//             fullWidth
-//             name="password"
-//             label="Password"
-//             type="password"
-//             id="password"
-//             autoComplete="current-password"
-//           />
-//           <FormControlLabel
-//             control={<Checkbox value="remember" color="primary" />}
-//             label="Remember me"
-//           />
-//           <Button
-//             type="submit"
-//             fullWidth
-//             variant="contained"
-//             color="primary"
-//             className={classes.submit}
-//           >
-//             Sign In
-//           </Button>
-//           <Grid container>
-//             <Grid item xs>
-//               <Link href="#" variant="body2">
-//                 Forgot password?
-//               </Link>
-//             </Grid>
-//             <Grid item>
-//               <Link href="#" variant="body2">
-//                 {"Don't have an account? Sign Up"}
-//               </Link>
-//             </Grid>
-//           </Grid>
-//         </form>
-//       </div>
+	const onSuccess = () => {
+    console.log('Logout made successfully');
+    alert('Logout made successfully ✌');
+  };
 
-//     </Container>
-//   );
-// }
 
-const Login = ({ googleOAuthLogin, auth }) => {
+
 	const classes = useStyles();
 	const renderUI = () => {
-		if (!auth.isSignedIn) {
+		console.log(auth.isSignedIn);
+		if (auth.isSignedIn === false) {
 			return (
 				<>
 					<h1>Login</h1>
@@ -116,29 +57,34 @@ const Login = ({ googleOAuthLogin, auth }) => {
 						onSuccess={googleOAuthLogin}
 						onFailure={googleOAuthLogin}
 						cookiePolicy={'single_host_origin'}
+						uxMode='redirect'
 					/>
 				</>
 			);
 		} else {
-			const {
-				isSignedIn,
-				user: {
-					accessToken,
-					profileObj: { email, name, imageUrl, googleId }
-				}
-			} = auth;
+			// const {
+			// 	isSignedIn,
+			// 	user: {
+			// 		accessToken,
+			// 		profileObj: { email, name, imageUrl, googleId }
+			// 	}
+			// } = auth;
 			return (
 				<>
 					<h1>Logout</h1>
 					<GoogleLogout
 						clientId='143814432776-d52d5uapdbufmmt0epop4upk71g4fghi.apps.googleusercontent.com'
 						buttonText='Logout'
-            onLogoutSuccess={googleOAuthLogout}
+						onLogoutSuccess={()=>{
+							console.log('Calling googleOAuthLogout when button clicked!');
+							googleOAuthLogout();
+						}}
 					></GoogleLogout>
 				</>
 			);
 		}
 	};
+	
 
 	return <section className={classes.paper}>{renderUI()}</section>;
 };
