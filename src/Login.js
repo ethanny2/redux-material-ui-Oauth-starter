@@ -57,7 +57,7 @@ const Login = ({ googleOAuthLogin, auth , googleOAuthLogout}) => {
 						onSuccess={googleOAuthLogin}
 						onFailure={googleOAuthLogin}
 						cookiePolicy={'single_host_origin'}
-						uxMode='redirect'
+						isSignedIn={true}
 					/>
 				</>
 			);
@@ -78,6 +78,9 @@ const Login = ({ googleOAuthLogin, auth , googleOAuthLogout}) => {
 						onLogoutSuccess={()=>{
 							console.log('Calling googleOAuthLogout when button clicked!');
 							googleOAuthLogout();
+						}}
+						onFailure= {() =>{
+							console.log('Calling googleOAuth logout failure');
 						}}
 					></GoogleLogout>
 				</>
