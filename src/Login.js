@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Avatar } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -14,6 +14,8 @@ import Container from '@material-ui/core/Container';
 import { GoogleLogin, GoogleLogout } from 'react-google-login';
 import { connect } from 'react-redux';
 import { googleOAuthLogin, googleOAuthLogout } from './actions/';
+import Alert from '@material-ui/lab/Alert';
+import Collapse from '@material-ui/core/Collapse';
 
 const useStyles = makeStyles((theme) => ({
 	paper: {
@@ -36,17 +38,30 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Login = ({ googleOAuthLogin, auth, googleOAuthLogout }) => {
-	const onSuccess = () => {
-		console.log('Logout made successfully');
-		alert('Logout made successfully ✌');
-	};
-
 	const classes = useStyles();
+	const onClose = () => {
+		setAlertConfig({
+			open: false,
+			variant: 'filled',
+			serverity: 'info',
+			onClose: onClose
+		});
+	};
+	const [alertConfig, setAlertConfig] = useState({
+		open: false,
+		variant: 'filled',
+		serverity: 'info',
+		onClose: onClose
+	});
+
 	const renderUI = () => {
 		console.log(auth.loggedIn);
 		if (auth.loggedIn === false) {
 			return (
 				<>
+					<Collapse in={alertConfig.open}>
+						<Alert {...alertConfig} open={undefined} />
+					</Collapse>
 					<h1>Login</h1>
 					<GoogleLogin
 						clientId='143814432776-d52d5uapdbufmmt0epop4upk71g4fghi.apps.googleusercontent.com'
@@ -59,13 +74,6 @@ const Login = ({ googleOAuthLogin, auth, googleOAuthLogout }) => {
 				</>
 			);
 		} else {
-			// const {
-			// 	isSignedIn,
-			// 	user: {
-			// 		accessToken,
-			// 		profileObj: { email, name, imageUrl, googleId }
-			// 	}
-			// } = auth;
 			return (
 				<>
 					<h1>Logout</h1>
@@ -93,8 +101,3 @@ export default connect(mapStateToProps, {
 	googleOAuthLogin,
 	googleOAuthLogout
 })(Login);
-//Client secret
-//143814432776-d52d5uapdbufmmt0epop4upk71g4fghi.apps.googleusercontent.com
-
-//Client id
-//HovqbtzfM5tz79mcMr3rn73z
