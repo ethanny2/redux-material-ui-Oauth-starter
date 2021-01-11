@@ -35,19 +35,16 @@ const useStyles = makeStyles((theme) => ({
 	}
 }));
 
-const Login = ({ googleOAuthLogin, auth , googleOAuthLogout}) => {
-
+const Login = ({ googleOAuthLogin, auth, googleOAuthLogout }) => {
 	const onSuccess = () => {
-    console.log('Logout made successfully');
-    alert('Logout made successfully ✌');
-  };
-
-
+		console.log('Logout made successfully');
+		alert('Logout made successfully ✌');
+	};
 
 	const classes = useStyles();
 	const renderUI = () => {
-		console.log(auth.isSignedIn);
-		if (auth.isSignedIn === false) {
+		console.log(auth.loggedIn);
+		if (auth.loggedIn === false) {
 			return (
 				<>
 					<h1>Login</h1>
@@ -75,19 +72,13 @@ const Login = ({ googleOAuthLogin, auth , googleOAuthLogout}) => {
 					<GoogleLogout
 						clientId='143814432776-d52d5uapdbufmmt0epop4upk71g4fghi.apps.googleusercontent.com'
 						buttonText='Logout'
-						onLogoutSuccess={()=>{
-							console.log('Calling googleOAuthLogout when button clicked!');
-							googleOAuthLogout();
-						}}
-						onFailure= {() =>{
-							console.log('Calling googleOAuth logout failure');
-						}}
+						onLogoutSuccess={googleOAuthLogout}
+						onFailure={googleOAuthLogout}
 					></GoogleLogout>
 				</>
 			);
 		}
 	};
-	
 
 	return <section className={classes.paper}>{renderUI()}</section>;
 };
