@@ -1,4 +1,4 @@
-import { SIGN_IN, SIGN_OUT } from './../actions/types';
+import { SIGN_IN, SIGN_OUT } from '../types';
 
 export const googleOAuthLogin = (response) => async (dispatch, getState) => {
 	const action = { type: SIGN_IN };
