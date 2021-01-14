@@ -1,6 +1,7 @@
 import { makeStyles } from '@material-ui/styles';
 import Login from './Login';
 import NavBar from './NavBar';
+import Alert from './Alert';
 
 /*Returns JSS styling object;*/
 const useStyles = makeStyles({
@@ -15,8 +16,8 @@ const useStyles = makeStyles({
 function App() {
 	const classes = useStyles();
 	return (
-		
 		<main className={classes.root}>
+			<Alert />
 			<NavBar></NavBar>
       <Login></Login>
 		</main>

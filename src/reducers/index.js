@@ -1,11 +1,8 @@
 import {combineReducers} from 'redux';
 import authReducer from './authReducer';
-// const INITIAL_STATE = {
-// 	isSignedIn: null,
-// 	userId: null
-// };
-
+import alertReducer  from './alertReducer'
 
 export default combineReducers({
- auth: authReducer
+ auth: authReducer,
+ alert: alertReducer
 });
