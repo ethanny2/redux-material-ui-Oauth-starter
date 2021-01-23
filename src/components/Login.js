@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
 	}
 }));
 
-const Login = ({ googleOAuthLogin, auth, googleOAuthLogout, clearAlert, showAlert }) => {
+const Login = ({ googleOAuthLogin, auth, googleOAuthLogout, showAlert }) => {
 	const classes = useStyles();
 	console.log(auth);
 	const renderUI = () => {
