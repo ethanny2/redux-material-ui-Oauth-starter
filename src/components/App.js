@@ -1,9 +1,14 @@
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles,  } from '@material-ui/core/styles';
 import Login from './Login';
 import NavBar from './NavBar';
 import Alert from './Alert';
 
-/*Returns JSS styling object;*/
+/*
+	Returns JSS styling object; as for theming just sticking with
+	the default Material UI lightmode style sheet
+	https://material-ui.com/customization/default-theme/
+	Also want to add in DARK MODE!!!!
+*/
 const useStyles = makeStyles({
 	root: {
 		margin: '0',
