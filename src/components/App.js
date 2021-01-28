@@ -8,6 +8,9 @@ import Alert from './Alert';
 	the default Material UI lightmode style sheet
 	https://material-ui.com/customization/default-theme/
 	Also want to add in DARK MODE!!!!
+	https://material-ui.com/customization/palette/
+	Spacing 8px per unit
+	https://material-ui.com/customization/components/
 */
 const useStyles = makeStyles({
 	root: {

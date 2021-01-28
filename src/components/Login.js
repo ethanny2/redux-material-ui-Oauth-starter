@@ -46,6 +46,7 @@ const Login = ({ googleOAuthLogin, auth, googleOAuthLogout, showAlert }) => {
 					<GoogleLogin
 						clientId='143814432776-d52d5uapdbufmmt0epop4upk71g4fghi.apps.googleusercontent.com'
 						buttonText='Login'
+						prompt="consent"
 						onSuccess={(res) => {
 							showAlert({
 								message: 'Successfully logged in',

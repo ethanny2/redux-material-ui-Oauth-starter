@@ -8,10 +8,19 @@ const INITIAL_STATE = {
 const authReducer = (state = INITIAL_STATE, action) => {
 	switch (action.type) {
 		case SIGN_IN:
+			console.log({action});
 			let loggedIn = action.payload ? true : false;
 			console.log('Logged IN successfully AUTHREDUCER');
-
-			return { ...state, loggedIn, user: { ...action.payload } };
+			return loggedIn
+				? {
+						...state,
+						loggedIn,
+						user: {
+							tokenId: action.payload.tokenId,
+							...action.payload.profileObj
+						}
+				  }
+				: { ...state, loggedIn, user: null };
 		case SIGN_OUT:
 			console.log({ state });
 			console.log('Logged out successfully AUTHREDUCER');
