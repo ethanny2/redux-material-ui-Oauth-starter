@@ -11,10 +11,18 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
+import { connect } from 'react-redux';
 
 const useStyles = makeStyles((theme) => ({
 	grow: {
 		flexGrow: 1
+	},
+	imageContainer: {
+		maxWidth: '100%',
+		height: 'auto',
+		'& img': {
+			width: '2em'
+		}
 	},
 	title: {
 		display: 'none',
@@ -36,7 +44,7 @@ const useStyles = makeStyles((theme) => ({
 	}
 }));
 
-const NavBar = () => {
+const NavBar = ({ auth }) => {
 	const classes = useStyles();
 	/* Should hold reference to DOM element, set anchorEl when
   menu is clicked open. Different menus for desktop and mobile*/
@@ -66,8 +74,8 @@ const NavBar = () => {
 	};
 	const handleMobileMenuClose = () => {
 		setMobileMoreAnchorEl(null);
-  };
-  
+	};
+
 	const menuId = 'primary-search-account-menu';
 
 	const renderMenu = (
@@ -80,7 +88,7 @@ const NavBar = () => {
 			open={isMenuOpen}
 			onClose={handleMenuClose}
 		>
-      {/* Change here if you want to link to other resoruces! */}
+			{/* Change here if you want to link to other resoruces! */}
 			<MenuItem onClick={handleMenuClose}>Profile</MenuItem>
 			<MenuItem onClick={handleMenuClose}>My account</MenuItem>
 		</Menu>
@@ -97,7 +105,7 @@ const NavBar = () => {
 			open={isMobileMenuOpen}
 			onClose={handleMobileMenuClose}
 		>
-      {/* Change here if you want to link to other resoruces! */}
+			{/* Change here if you want to link to other resoruces! */}
 			<MenuItem>
 				<IconButton aria-label='show 1 new mails' color='inherit'>
 					<Badge badgeContent={1} color='secondary'>
@@ -141,42 +149,68 @@ const NavBar = () => {
           */}
 					<div className={classes.grow} />
 					<div className={classes.sectionDesktop}>
-             {/* Change here if you want to link to other resoruces! */}
-						<IconButton aria-label='show 0 new mails' color='inherit'>
-							<Badge badgeContent={1} color='secondary'>
-								<MailIcon />
-							</Badge>
-						</IconButton>
-						<IconButton aria-label='show 0 new notifications' color='inherit'>
-							<Badge badgeContent={1} color='secondary'>
-								<NotificationsIcon />
-							</Badge>
-						</IconButton>
-						<IconButton
-							edge='end'
-							aria-label='account of current user'
-							aria-controls={menuId}
-							aria-haspopup='true'
-							onClick={handleProfileMenuOpen}
-							color='inherit'
-						>
-							<AccountCircle />
-						</IconButton>
+						{/* Change here if you want to link to other resoruces! */}
+						{auth.user ? (
+							<>
+								<IconButton aria-label='show 0 new mails' color='inherit'>
+									<Badge badgeContent={1} color='secondary'>
+										<MailIcon />
+									</Badge>
+								</IconButton>
+								<IconButton
+									aria-label='show 0 new notifications'
+									color='inherit'
+								>
+									<Badge badgeContent={1} color='secondary'>
+										<NotificationsIcon />
+									</Badge>
+								</IconButton>
+								<IconButton
+									edge='end'
+									aria-label='account of current user'
+									aria-controls={menuId}
+									aria-haspopup='true'
+									onClick={handleProfileMenuOpen}
+									color='inherit'
+								>
+									{/* <AccountCircle /> */}
+									<div className={classes.imageContainer}>
+										<img src={auth.user.imageUrl} alt={auth.user.givenName} />
+									</div>
+								</IconButton>
+							</>
+						) : (
+							<>
+								<Typography
+									variant='h6'
+									component='h6'
+									className={classes.title}
+								>
+									Not Logged in
+								</Typography>
+							</>
+						)}
 					</div>
 					<div className={classes.sectionMobile}>
-						<IconButton
-							aria-label='show more'
-							aria-controls={mobileMenuId}
-							aria-haspopup='true'
-							onClick={handleMobileMenuOpen}
-							color='inherit'
-						>
-							<MoreIcon />
-						</IconButton>
+						{auth.user ? (
+							<>
+								<IconButton
+									aria-label='show more'
+									aria-controls={mobileMenuId}
+									aria-haspopup='true'
+									onClick={handleMobileMenuOpen}
+									color='inherit'
+								>
+									<MoreIcon />
+								</IconButton>
+							</>
+						) : (
+						  null
+						)}
 					</div>
 				</Toolbar>
 			</AppBar>
-      {/* These are not rendered till anchorEl is set, which only happens
+			{/* These are not rendered till anchorEl is set, which only happens
       after the menu button is clicked. Both menus are controlled by media
       queries so only one version (desktop or mobile) is displayed at once */}
 			{renderMobileMenu}
@@ -185,4 +219,9 @@ const NavBar = () => {
 	);
 };
 
-export default NavBar;
+function mapStateToProps(state, ownProps) {
+	//Here you can get whatever the component needs from redux store...
+	return { auth: state.auth };
+}
+
+export default connect(mapStateToProps, {})(NavBar);
