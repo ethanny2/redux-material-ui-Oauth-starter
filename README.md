@@ -68,3 +68,26 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `yarn build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+--------------
+
+
+
+
+# How this library enables resigning in the user 
+
+- Stores some data in both localStorage and sessionStorage on the account.google.com
+- LocalStorage persists until deleted and session storage persists until the BROWSER you visited the site on is closed.
+- A page session lasts as long as the tab or the browser is open, and survives over page reloads and restores.
+  
+  (Not on localhost:xxxx but rather https://accounts.google.com)
+- The local storage  has 2 keys promo : {} and
+- oauth2_ss::http://localhost:3000::1::DEFAULT::_ss_ :  
+- {"cachedValue":{"hint":"AJDLj6JUa8yxXrhHdWRHIV0S13cA31coOIlRQtG8lu1s-_GIL1aQpcJcXM2BHw0psjMcTaRnu21qRyN4x1davA1HkGlL2f_dJw","disabled":false}}
+- The localStorage entry is the main thing used to hit the google 0auth endpoint. It then propagates more data in session storage which is for something
+- Stores some data such as token expiration time, when it was issued, the JWT to access google services called id_token, and the scope of the login
+  
+-  Not essential to re-logging in just localStorage
+- Default expiry time for a token is 3600s = 1 hour
+- 
+
+- The hint is most likely the users google ID NOT THEIR ACCESS TOKEN

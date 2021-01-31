@@ -184,7 +184,6 @@ const NavBar = ({ auth }) => {
 								<Typography
 									variant='h6'
 									component='h6'
-									className={classes.title}
 								>
 									Not Logged in
 								</Typography>
@@ -205,7 +204,9 @@ const NavBar = ({ auth }) => {
 								</IconButton>
 							</>
 						) : (
-						  null
+							<Typography variant='h6' component='h6' >
+								Not Logged in
+							</Typography>
 						)}
 					</div>
 				</Toolbar>
