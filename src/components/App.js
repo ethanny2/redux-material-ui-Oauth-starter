@@ -2,6 +2,7 @@ import { makeStyles,  } from '@material-ui/core/styles';
 import Login from './Login';
 import NavBar from './NavBar';
 import Alert from './Alert';
+import Login2 from './Login2';
 
 /*
 	Returns JSS styling object; as for theming just sticking with
@@ -42,7 +43,8 @@ function App() {
 		<main className={`${classes.root} cssjss-advanced-global-root`}>
 			<Alert />
 			<NavBar></NavBar>
-			<Login></Login>
+			<Login2></Login2>
+			{/* <Login></Login> */}
 		</main>
 	);
 }
