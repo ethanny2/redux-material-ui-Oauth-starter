@@ -6,6 +6,16 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { useGoogleLogin, useGoogleLogout } from 'react-google-login';
 import googleLogo from '../images/google-logo.png';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { ALERT_STATES } from '../reducers/alertReducer';
+import { clearAlert, showAlert } from '../actions/alertActions';
+import {
+	googleOAuthLogin,
+	googleOAuthLogout
+} from '../actions/googleOauthActions';
+const clientId =
+	'143814432776-d52d5uapdbufmmt0epop4upk71g4fghi.apps.googleusercontent.com';
 
 const useStyles = makeStyles((theme) => ({
 	center: {
@@ -43,12 +53,35 @@ const useStyles = makeStyles((theme) => ({
 	}
 }));
 
-export default function SignIn() {
+function Login2({ googleOAuthLogin, auth, googleOAuthLogout, showAlert }) {
 	const classes = useStyles();
+	/*Wrapper for our Oauth actions
+  so we can call the alert at the appropriate time */
+	const onSuccess = (res) => {
+		googleOAuthLogin(res);
+		showAlert({
+			message: 'Successfully logged in',
+			severity: ALERT_STATES.success
+		});
+	};
+	const onFailure = (res) => {
+		googleOAuthLogin(res);
+		showAlert({
+			message: 'Login failed ',
+			severity: ALERT_STATES.error
+		});
+	};
+
+	const { signIn } = useGoogleLogin({
+		onSuccess,
+		onFailure,
+		clientId,
+		isSignedIn: true
+	});
 
 	return (
 		<Container component='section' className={classes.center}>
-			<Button className={classes.button}>
+			<Button className={classes.button} onClick={signIn}>
 				<Avatar src={googleLogo} className={classes.avatar} />
 				<Typography component='p' variant='h6' className={classes.text}>
 					Sign in with Google
@@ -57,3 +90,18 @@ export default function SignIn() {
 		</Container>
 	);
 }
+
+function mapStateToProps(state, ownProps) {
+	//Here you can get whatever the component needs from redux store...
+	console.log({ state });
+	return { auth: state.auth };
+}
+
+function mapDispatchToProps(dispatch) {
+	return bindActionCreators(
+		{ clearAlert, showAlert, googleOAuthLogin, googleOAuthLogout },
+		dispatch
+	);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login2);

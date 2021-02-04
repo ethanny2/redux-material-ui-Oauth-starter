@@ -1,8 +1,5 @@
 import React from 'react';
-import { Avatar } from '@material-ui/core';
-import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
 import { GoogleLogin, GoogleLogout } from 'react-google-login';
 import { clearAlert, showAlert } from '../actions/alertActions';
 import { connect } from 'react-redux';
@@ -11,7 +8,6 @@ import {
 	googleOAuthLogin,
 	googleOAuthLogout
 } from '../actions/googleOauthActions';
-import Collapse from '@material-ui/core/Collapse';
 import { bindActionCreators } from 'redux';
 
 const useStyles = makeStyles((theme) => ({
