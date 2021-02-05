@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
 		}
 	},
 	avatar: {
-		margin: 0
+		margin: `0 ${theme.spacing(1)}px`
 	},
 	text: {
 		flexGrow: 1,
@@ -53,38 +53,38 @@ const useStyles = makeStyles((theme) => ({
 	}
 }));
 
-function Login2({ googleOAuthLogin, auth, googleOAuthLogout, showAlert }) {
+function Logout({ googleOAuthLogin, auth, googleOAuthLogout, showAlert }) {
 	const classes = useStyles();
 	/*Wrapper for our Oauth actions
   so we can call the alert at the appropriate time */
 	const onSuccess = (res) => {
-		googleOAuthLogin(res);
+		googleOAuthLogout(res);
 		showAlert({
-			message: 'Successfully logged in',
+			message: 'Successfully logged out in',
 			severity: ALERT_STATES.success
 		});
 	};
 	const onFailure = (res) => {
-		googleOAuthLogin(res);
+		googleOAuthLogout(res);
 		showAlert({
-			message: 'Login failed ',
+			message: 'Logout failed ',
 			severity: ALERT_STATES.error
 		});
 	};
 
-	const { signIn } = useGoogleLogin({
-		onSuccess,
-		onFailure,
+	const { signOut} = useGoogleLogout({
+    onFailure,
+    onLogoutSuccess: onSuccess,
 		clientId,
 		isSignedIn: true
 	});
 
 	return (
 		<Container component='section' className={classes.center}>
-			<Button className={classes.button} onClick={signIn}>
+			<Button className={classes.button} onClick={signOut}>
 				<Avatar src={googleLogo} className={classes.avatar} />
 				<Typography component='p' variant='h6' className={classes.text}>
-					Sign in with Google
+					Sign out of Google
 				</Typography>
 			</Button>
 		</Container>
@@ -104,4 +104,4 @@ function mapDispatchToProps(dispatch) {
 	);
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login2);
+export default connect(mapStateToProps, mapDispatchToProps)(Logout);

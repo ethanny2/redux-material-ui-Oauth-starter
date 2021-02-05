@@ -1,25 +1,48 @@
 import React from 'react';
+import Avatar from '@material-ui/core/Avatar';
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
-import { GoogleLogin, GoogleLogout } from 'react-google-login';
-import { clearAlert, showAlert } from '../actions/alertActions';
+import Container from '@material-ui/core/Container';
+import { useGoogleLogin, useGoogleLogout } from 'react-google-login';
+import googleLogo from '../images/google-logo.png';
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { ALERT_STATES } from '../reducers/alertReducer';
+import { clearAlert, showAlert } from '../actions/alertActions';
 import {
 	googleOAuthLogin,
 	googleOAuthLogout
 } from '../actions/googleOauthActions';
-import { bindActionCreators } from 'redux';
+const clientId =
+	'143814432776-d52d5uapdbufmmt0epop4upk71g4fghi.apps.googleusercontent.com';
 
 const useStyles = makeStyles((theme) => ({
-	paper: {
-		marginTop: theme.spacing(8),
+	center: {
 		display: 'flex',
-		flexDirection: 'column',
-		alignItems: 'center'
+		justifyContent: 'center'
+	},
+	button: {
+		textTransform: 'none',
+		marginTop: theme.spacing(10),
+		display: 'flex',
+		alignItems: 'center',
+		boxShadow: theme.shadows[3],
+		backgroundColor: theme.palette.primary.main,
+		color: theme.palette.primary.contrastText,
+		transition: 'background-color 0.5s',
+		'&:hover': {
+			backgroundColor: theme.palette.primary.dark,
+			transition: 'background-color 0.5s',
+			cursor: 'pointer'
+		}
 	},
 	avatar: {
-		margin: theme.spacing(1),
-		backgroundColor: theme.palette.secondary.main
+		margin: `0 ${theme.spacing(1)}px`
+	},
+	text: {
+		flexGrow: 1,
+		textAlign: 'center'
 	},
 	form: {
 		width: '100%', // Fix IE 11 issue.
@@ -30,86 +53,49 @@ const useStyles = makeStyles((theme) => ({
 	}
 }));
 
-const Login = ({ googleOAuthLogin, auth, googleOAuthLogout, showAlert }) => {
+function Login({ googleOAuthLogin, auth, googleOAuthLogout, showAlert }) {
 	const classes = useStyles();
-	console.log(auth);
-	const renderUI = () => {
-		console.log(auth.loggedIn);
-		if (auth.loggedIn === false) {
-			return (
-				<>
-					<h1>Login</h1>
-					<GoogleLogin
-						clientId='143814432776-d52d5uapdbufmmt0epop4upk71g4fghi.apps.googleusercontent.com'
-						buttonText='Login'
-						prompt="consent"
-						onSuccess={(res) => {
-							showAlert({
-								message: 'Successfully logged in',
-								severity: ALERT_STATES.success
-							});
-							googleOAuthLogin(res);
-						}}
-						onFailure={(res) => {
-							googleOAuthLogin(res);
-							showAlert({
-								message: 'Login failed ',
-								severity: ALERT_STATES.error
-							});
-						}}
-						cookiePolicy={'single_host_origin'}
-						isSignedIn={true}
-					/>
-				</>
-			);
-		} else {
-			return (
-				<>
-					<h1>Logout</h1>
-					<GoogleLogout
-						clientId='143814432776-d52d5uapdbufmmt0epop4upk71g4fghi.apps.googleusercontent.com'
-						buttonText='Logout'
-						onLogoutSuccess={(res) => {
-							googleOAuthLogout(res);
-							showAlert({
-								message: 'Successfully logged out ',
-								severity: ALERT_STATES.success
-							});
-						}}
-						onFailure={(res) => {
-							googleOAuthLogout(res);
-							showAlert({
-								message: 'Logout failed ',
-								severity: ALERT_STATES.error
-							});
-						}}
-					></GoogleLogout>
-				</>
-			);
-		}
+	/*Wrapper for our Oauth actions
+  so we can call the alert at the appropriate time */
+	const onSuccess = (res) => {
+		googleOAuthLogin(res);
+		showAlert({
+			message: 'Successfully logged in',
+			severity: ALERT_STATES.success
+		});
+	};
+	const onFailure = (res) => {
+		googleOAuthLogin(res);
+		showAlert({
+			message: 'Login failed ',
+			severity: ALERT_STATES.error
+		});
 	};
 
-	return <section className={classes.paper}>{renderUI()}</section>;
-};
+	const { signIn } = useGoogleLogin({
+		onSuccess,
+		onFailure,
+		clientId,
+		isSignedIn: true
+	});
+
+	return (
+		<Container component='section' className={classes.center}>
+			<Button className={classes.button} onClick={signIn}>
+				<Avatar src={googleLogo} className={classes.avatar} />
+				<Typography component='p' variant='h6' className={classes.text}>
+					Sign in with Google
+				</Typography>
+			</Button>
+		</Container>
+	);
+}
 
 function mapStateToProps(state, ownProps) {
 	//Here you can get whatever the component needs from redux store...
 	console.log({ state });
 	return { auth: state.auth };
 }
-
-/*Can define this with or without bindActionCreators;
-	or just do the shorthand method to include this action
-	creators.
-	
-export default connect(mapStateToProps, {
-	googleOAuthLogin,
-	googleOAuthLogout,
-	clearAlert,
-	showAlert	
-})(Login);
-
-*/
 
 function mapDispatchToProps(dispatch) {
 	return bindActionCreators(

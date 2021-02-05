@@ -1,9 +1,9 @@
-import { makeStyles,  } from '@material-ui/core/styles';
-import Login from './Login';
+import { makeStyles } from '@material-ui/core/styles';
+import { connect } from 'react-redux';
 import NavBar from './NavBar';
 import Alert from './Alert';
-import Login2 from './Login2';
-
+import Login from './Login';
+import Logout from './Logout';
 /*
 	Returns JSS styling object; as for theming just sticking with
 	the default Material UI lightmode style sheet
@@ -37,16 +37,20 @@ const useStyles = makeStyles({
 	}
 });
 
-function App() {
+function App({ auth }) {
 	const classes = useStyles();
 	return (
 		<main className={`${classes.root} cssjss-advanced-global-root`}>
-			<Alert />
 			<NavBar></NavBar>
-			<Login2></Login2>
-			{/* <Login></Login> */}
+			<Alert />
+			{auth.loggedIn ? <Logout /> : <Login />}
 		</main>
 	);
 }
 
-export default App;
+function mapStateToProps(state, ownProps) {
+	//Here you can get whatever the component needs from redux store...
+	return { auth: state.auth };
+}
+
+export default connect(mapStateToProps, {})(App);
