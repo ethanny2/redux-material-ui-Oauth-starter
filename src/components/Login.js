@@ -4,16 +4,13 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import { useGoogleLogin, useGoogleLogout } from 'react-google-login';
+import { useGoogleLogin } from 'react-google-login';
 import googleLogo from '../images/google-logo.png';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { ALERT_STATES } from '../reducers/alertReducer';
 import { clearAlert, showAlert } from '../actions/alertActions';
-import {
-	googleOAuthLogin,
-	googleOAuthLogout
-} from '../actions/googleOauthActions';
+import { googleOAuthLogin } from '../actions/googleOauthActions';
 const clientId =
 	'143814432776-d52d5uapdbufmmt0epop4upk71g4fghi.apps.googleusercontent.com';
 
@@ -53,7 +50,7 @@ const useStyles = makeStyles((theme) => ({
 	}
 }));
 
-function Login({ googleOAuthLogin, auth, googleOAuthLogout, showAlert }) {
+function Login({ googleOAuthLogin, showAlert }) {
 	const classes = useStyles();
 	/*Wrapper for our Oauth actions
   so we can call the alert at the appropriate time */
@@ -99,7 +96,7 @@ function mapStateToProps(state, ownProps) {
 
 function mapDispatchToProps(dispatch) {
 	return bindActionCreators(
-		{ clearAlert, showAlert, googleOAuthLogin, googleOAuthLogout },
+		{ clearAlert, showAlert, googleOAuthLogin },
 		dispatch
 	);
 }

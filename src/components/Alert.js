@@ -3,9 +3,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 import {
 	Snackbar,
-	Typography,
-	Container,
-	Button,
 	IconButton
 } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
@@ -37,7 +34,7 @@ const Alert = ({ clearAlert, alert }) => {
 	const handleClose = () => {
 		clearAlert();
 	};
-	const classes = useStyles();
+	// const classes = useStyles();
 	console.log(alert);
 	return (
 		<Snackbar
