@@ -4,6 +4,9 @@ import NavBar from './NavBar';
 import Alert from './Alert';
 import Login from './Login';
 import Logout from './Logout';
+import ThemeProvider from './ThemeProvider';
+import CssBaseline from '@material-ui/core/CssBaseline';
+
 /*
 	Returns JSS styling object; as for theming just sticking with
 	the default Material UI lightmode style sheet
@@ -12,6 +15,8 @@ import Logout from './Logout';
 	https://material-ui.com/customization/palette/
 	Spacing 8px per unit
 	https://material-ui.com/customization/components/
+	More on CSS baseline 
+	https://material-ui.com/components/css-baseline/
 */
 const useStyles = makeStyles({
 	root: {
@@ -25,7 +30,6 @@ const useStyles = makeStyles({
 			padding: 0,
 			height: '100%',
 			width: '100%',
-			boxSizing: 'border-box'
 		},
 		'*, *:before, *:after': {
 			boxSizing: 'inherit'
@@ -40,11 +44,14 @@ const useStyles = makeStyles({
 function App({ auth }) {
 	const classes = useStyles();
 	return (
-		<main className={`${classes.root} cssjss-advanced-global-root`}>
-			<NavBar></NavBar>
-			<Alert />
-			{auth.loggedIn ? <Logout /> : <Login />}
-		</main>
+		<ThemeProvider>
+			<CssBaseline />
+			<main className={`${classes.root} cssjss-advanced-global-root`}>
+				<NavBar></NavBar>
+				<Alert />
+				{auth.loggedIn ? <Logout /> : <Login />}
+			</main>
+		</ThemeProvider>
 	);
 }
 
