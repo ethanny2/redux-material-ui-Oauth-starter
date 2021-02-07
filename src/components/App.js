@@ -17,6 +17,13 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 	https://material-ui.com/customization/components/
 	More on CSS baseline 
 	https://material-ui.com/components/css-baseline/
+	Type dark on the theme only changes these properties
+	palette.text
+	palette.divider
+	palette.background
+	palette.action
+	So using theme.palette.primary.main or any others
+	will not see any change when type is switched to dark
 */
 const useStyles = makeStyles({
 	root: {

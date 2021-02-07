@@ -3,10 +3,19 @@ import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 
 /*If no other key-val pairs are set on the custom theme it retains
 all the default MUI theme values. So for a simple switch to dark mode this
-will suffice. */
+will suffice.
+Actually switching to dark doesn't change palette values so I have
+to do that manually
+light mode main color: #4285F4
+dark mode main color: #fff
+*/
 const theme = createMuiTheme({
 	palette: {
-		type: 'dark'
+    type: 'light', // This
+    primary: { 
+      main: '#3f51b5', // and this are the only properties that need to be changed for dark mode
+      contrastText: '#fff'
+    }
 	}
 });
 

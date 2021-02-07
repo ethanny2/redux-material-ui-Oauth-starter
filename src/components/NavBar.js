@@ -10,12 +10,19 @@ import Menu from '@material-ui/core/Menu';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
+import Switch from '@material-ui/core/Switch';
+import { bindActionCreators } from 'redux';
+import {toggleTheme} from '../actions/themeActions'
 import MoreIcon from '@material-ui/icons/MoreVert';
 import { connect } from 'react-redux';
 
 const useStyles = makeStyles((theme) => ({
 	grow: {
 		flexGrow: 1
+	},
+	nav: {
+		backgroundColor: theme.palette.primary.main,
+		color: theme.palette.primary.contrastText
 	},
 	imageContainer: {
 		maxWidth: '100%',
@@ -44,13 +51,12 @@ const useStyles = makeStyles((theme) => ({
 	}
 }));
 
-const NavBar = ({ auth }) => {
+const NavBar = ({ auth, theme }) => {
 	const classes = useStyles();
 	/* Should hold reference to DOM element, set anchorEl when
   menu is clicked open. Different menus for desktop and mobile*/
 	const [anchorEl, setAnchorEl] = React.useState(null);
 	const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
-
 	/*
     Coersion to force the null value to false and any DOM
     element to true. Used in place of putting the state
@@ -75,6 +81,10 @@ const NavBar = ({ auth }) => {
 	const handleMobileMenuClose = () => {
 		setMobileMoreAnchorEl(null);
 	};
+	const handleToggleChange = (event) => {
+
+	}
+
 
 	const menuId = 'primary-search-account-menu';
 
@@ -137,9 +147,9 @@ const NavBar = ({ auth }) => {
 	);
 
 	return (
-		<div className={classes.grow}>
-			<AppBar position='static'>
-				<Toolbar>
+		<header className={classes.grow}>
+			<AppBar position='static' component='div'>
+				<Toolbar component='nav' className={classes.nav}>
 					<Typography className={classes.title} variant='h6' noWrap>
 						Google Oauth Redux
 					</Typography>
@@ -152,6 +162,12 @@ const NavBar = ({ auth }) => {
 						{/* Change here if you want to link to other resoruces! */}
 						{auth.user ? (
 							<>
+								{/* On is dark mode off is light */}
+								<Switch checked={theme.type === 'dark'}
+								name="themeToggle">
+        		inputProps={{ 'aria-label': 'primary checkbox' }}
+
+								</Switch>
 								<IconButton aria-label='show 0 new mails' color='inherit'>
 									<Badge badgeContent={1} color='secondary'>
 										<MailIcon />
@@ -173,7 +189,6 @@ const NavBar = ({ auth }) => {
 									onClick={handleProfileMenuOpen}
 									color='inherit'
 								>
-									{/* <AccountCircle /> */}
 									<div className={classes.imageContainer}>
 										<img src={auth.user.imageUrl} alt={auth.user.givenName} />
 									</div>
@@ -213,13 +228,20 @@ const NavBar = ({ auth }) => {
       queries so only one version (desktop or mobile) is displayed at once */}
 			{renderMobileMenu}
 			{renderMenu}
-		</div>
+		</header>
 	);
 };
 
 function mapStateToProps(state, ownProps) {
 	//Here you can get whatever the component needs from redux store...
-	return { auth: state.auth };
+	return { auth: state.auth, theme: state.theme };
 }
 
-export default connect(mapStateToProps, {})(NavBar);
+function mapDispatchToProps(dispatch) {
+	return bindActionCreators(
+		{ toggleTheme },
+		dispatch
+	);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(NavBar);
