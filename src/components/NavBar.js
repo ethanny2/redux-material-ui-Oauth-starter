@@ -12,7 +12,7 @@ import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import Switch from '@material-ui/core/Switch';
 import { bindActionCreators } from 'redux';
-import {toggleTheme} from '../actions/themeActions'
+import { toggleTheme } from '../actions/themeActions';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import { connect } from 'react-redux';
 
@@ -51,7 +51,7 @@ const useStyles = makeStyles((theme) => ({
 	}
 }));
 
-const NavBar = ({ auth, theme }) => {
+const NavBar = ({ auth, theme, toggleTheme }) => {
 	const classes = useStyles();
 	/* Should hold reference to DOM element, set anchorEl when
   menu is clicked open. Different menus for desktop and mobile*/
@@ -82,9 +82,9 @@ const NavBar = ({ auth, theme }) => {
 		setMobileMoreAnchorEl(null);
 	};
 	const handleToggleChange = (event) => {
-
-	}
-
+		console.log('CALLING TOGGLE THEME WITH DISPATCH');
+		toggleTheme();
+	};
 
 	const menuId = 'primary-search-account-menu';
 
@@ -163,11 +163,19 @@ const NavBar = ({ auth, theme }) => {
 						{auth.user ? (
 							<>
 								{/* On is dark mode off is light */}
-								<Switch checked={theme.type === 'dark'}
-								name="themeToggle">
-        		inputProps={{ 'aria-label': 'primary checkbox' }}
+								<IconButton aria-label='toggle dark mode'>
+									<Switch
+										checked={theme.palette.type === 'dark'}
+										name='themeToggle'
+									>
+										inputProps={{ 'aria-label': 'primary checkbox' }}
+										onClick=
+										{() => {
+											console.log('CLICKED');
+										}}
+									</Switch>
+								</IconButton>
 
-								</Switch>
 								<IconButton aria-label='show 0 new mails' color='inherit'>
 									<Badge badgeContent={1} color='secondary'>
 										<MailIcon />
@@ -238,10 +246,7 @@ function mapStateToProps(state, ownProps) {
 }
 
 function mapDispatchToProps(dispatch) {
-	return bindActionCreators(
-		{ toggleTheme },
-		dispatch
-	);
+	return bindActionCreators({ toggleTheme }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(NavBar);

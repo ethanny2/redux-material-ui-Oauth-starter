@@ -1,7 +1,13 @@
 import { TOGGLE_THEME } from '../types';
-/* Only light and dark themes */
 import { createMuiTheme } from '@material-ui/core/styles';
-
+/*If no other key-val pairs are set on the custom theme it retains
+all the default MUI theme values. So for a simple switch to dark mode this
+will suffice.
+Actually switching to dark doesn't change palette values so I have
+to do that manually
+light mode main color: #4285F4
+dark mode main color: #fff
+*/
 const LIGHT_MODE_STATE = createMuiTheme({
 	palette: {
 		type: 'light', // This
