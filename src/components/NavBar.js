@@ -163,18 +163,27 @@ const NavBar = ({ auth, theme, toggleTheme }) => {
 						{auth.user ? (
 							<>
 								{/* On is dark mode off is light */}
-								<IconButton aria-label='toggle dark mode'>
-									<Switch
-										checked={theme.palette.type === 'dark'}
-										name='themeToggle'
-									>
-										inputProps={{ 'aria-label': 'primary checkbox' }}
-										onClick=
-										{() => {
-											console.log('CLICKED');
-										}}
-									</Switch>
-								</IconButton>
+								{/* <IconButton aria-label='toggle dark mode'> */}
+								{/* <Switch
+									checked={theme.palette.type === 'dark'}
+									name='themeToggle'
+								>
+									inputProps={{ 'aria-label': 'primary checkbox' }}
+									onChange=
+									{() => {
+										console.log('CLICKED');
+									}}
+								</Switch> */}
+								<Switch
+									color='primary'
+									checked={false}
+									onChange={() => {
+										console.log('Please work');
+									}}
+									inputProps={{ 'aria-label': 'primary checkbox' }}
+									name='themeToggle'
+								></Switch>
+								{/* </IconButton> */}
 
 								<IconButton aria-label='show 0 new mails' color='inherit'>
 									<Badge badgeContent={1} color='secondary'>

@@ -11,6 +11,7 @@ import { connect } from 'react-redux';
 import { ALERT_STATES } from '../reducers/alertReducer';
 import { clearAlert, showAlert } from '../actions/alertActions';
 import { googleOAuthLogout } from '../actions/googleOauthActions';
+import Switch from '@material-ui/core/Switch';
 const clientId =
 	'143814432776-d52d5uapdbufmmt0epop4upk71g4fghi.apps.googleusercontent.com';
 
@@ -78,6 +79,17 @@ function Logout({ googleOAuthLogout, showAlert }) {
 
 	return (
 		<Container component='section' className={classes.center}>
+		
+			{/* <Switch
+				color='primary'
+				checked={false}
+				onChange={() => {
+					console.log('Please work');
+				}}
+				inputProps={{ 'aria-label': 'primary checkbox' }}
+
+				name='themeToggle'
+			/> */}
 			<Button className={classes.button} onClick={signOut}>
 				<Avatar src={googleLogo} className={classes.avatar} />
 				<Typography component='p' variant='h6' className={classes.text}>
