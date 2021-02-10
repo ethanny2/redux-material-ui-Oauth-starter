@@ -8,6 +8,8 @@ to do that manually
 light mode main color: #4285F4
 dark mode main color: #fff
 */
+
+let INITIAL_STATE = {};
 const LIGHT_MODE_STATE = createMuiTheme({
 	palette: {
 		type: 'light', // This
@@ -17,7 +19,6 @@ const LIGHT_MODE_STATE = createMuiTheme({
 		}
 	}
 });
-
 const DARK_MODE_STATE = createMuiTheme({
 	palette: {
 		type: 'dark', // This
@@ -28,18 +29,24 @@ const DARK_MODE_STATE = createMuiTheme({
 	}
 });
 
-
+/* Choose the default theme as the users system preferences */
+let matched = window.matchMedia('(prefers-color-scheme: dark)').matches;
+matched
+	? (INITIAL_STATE = { ...DARK_MODE_STATE })
+	: (INITIAL_STATE = { ...LIGHT_MODE_STATE });
 
 /*What up with this one need to debug */
-const themeReducer = (state = LIGHT_MODE_STATE, action) => {
+const themeReducer = (state = INITIAL_STATE, action) => {
 	switch (action.type) {
 		case TOGGLE_THEME:
-      //There is no payload we just replace the theme obj/state with the
-      //opposite of whatever type is 
-      return state.palette.type === 'light' ? {...DARK_MODE_STATE} : {...LIGHT_MODE_STATE}
+			//There is no payload we just replace the theme obj/state with the
+			//opposite of whatever type is
+			return state.palette.type === 'light'
+				? { ...DARK_MODE_STATE }
+				: { ...LIGHT_MODE_STATE };
 		default:
 			return state;
 	}
 };
 
-export default themeReducer; 
+export default themeReducer;

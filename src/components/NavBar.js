@@ -24,6 +24,11 @@ const useStyles = makeStyles((theme) => ({
 		backgroundColor: theme.palette.primary.main,
 		color: theme.palette.primary.contrastText
 	},
+	themeToggle: {
+		[theme.breakpoints.up('sm')]: {
+			padding: 0
+		}
+	},
 	imageContainer: {
 		maxWidth: '100%',
 		height: 'auto',
@@ -81,7 +86,7 @@ const NavBar = ({ auth, theme, toggleTheme }) => {
 	const handleMobileMenuClose = () => {
 		setMobileMoreAnchorEl(null);
 	};
-	const handleToggleChange = (event) => {
+	const handleToggleChange = () => {
 		console.log('CALLING TOGGLE THEME WITH DISPATCH');
 		toggleTheme();
 	};
@@ -100,11 +105,11 @@ const NavBar = ({ auth, theme, toggleTheme }) => {
 		>
 			{/* Change here if you want to link to other resoruces! */}
 			<MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-			<MenuItem onClick={handleMenuClose}>My account</MenuItem>
 		</Menu>
 	);
 
 	const mobileMenuId = 'primary-search-account-menu-mobile';
+	/*Need to add switch in here */
 	const renderMobileMenu = (
 		<Menu
 			anchorEl={mobileMoreAnchorEl}
@@ -132,16 +137,27 @@ const NavBar = ({ auth, theme, toggleTheme }) => {
 				</IconButton>
 				<p>Notifications</p>
 			</MenuItem>
-			<MenuItem onClick={handleProfileMenuOpen}>
+			<MenuItem>
 				<IconButton
 					aria-label='account of current user'
 					aria-controls='primary-search-account-menu'
-					aria-haspopup='true'
 					color='inherit'
 				>
 					<AccountCircle />
 				</IconButton>
 				<p>Profile</p>
+			</MenuItem>
+			<MenuItem>
+				<IconButton aria-label='toggle dark mode'>
+					<Switch
+						color='default'
+						checked={theme.palette.type === 'dark'}
+						onChange={handleToggleChange}
+						inputProps={{ 'aria-label': 'primary checkbox' }}
+						name='themeToggle'
+					></Switch>
+				</IconButton>
+				<p>Theme </p>
 			</MenuItem>
 		</Menu>
 	);
@@ -163,27 +179,15 @@ const NavBar = ({ auth, theme, toggleTheme }) => {
 						{auth.user ? (
 							<>
 								{/* On is dark mode off is light */}
-								{/* <IconButton aria-label='toggle dark mode'> */}
-								{/* <Switch
-									checked={theme.palette.type === 'dark'}
-									name='themeToggle'
-								>
-									inputProps={{ 'aria-label': 'primary checkbox' }}
-									onChange=
-									{() => {
-										console.log('CLICKED');
-									}}
-								</Switch> */}
-								<Switch
-									color='primary'
-									checked={false}
-									onChange={() => {
-										console.log('Please work');
-									}}
-									inputProps={{ 'aria-label': 'primary checkbox' }}
-									name='themeToggle'
-								></Switch>
-								{/* </IconButton> */}
+								<IconButton aria-label='toggle dark mode'>
+									<Switch
+										color='default'
+										checked={theme.palette.type === 'dark'}
+										onChange={handleToggleChange}
+										inputProps={{ 'aria-label': 'primary checkbox' }}
+										name='themeToggle'
+									></Switch>
+								</IconButton>
 
 								<IconButton aria-label='show 0 new mails' color='inherit'>
 									<Badge badgeContent={1} color='secondary'>
