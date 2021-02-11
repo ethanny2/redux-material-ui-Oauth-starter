@@ -21,9 +21,9 @@ const LIGHT_MODE_STATE = createMuiTheme({
 });
 const DARK_MODE_STATE = createMuiTheme({
 	palette: {
-		type: 'dark', // This
+		type: 'dark', 
 		primary: {
-			main: '#000', // and this are the only properties that need to be changed for dark mode
+			main: '#000', 
 			contrastText: '#fff'
 		}
 	}
