@@ -5,11 +5,10 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { useGoogleLogin } from 'react-google-login';
+import { useDispatch } from 'react-redux';
 import googleLogo from '../images/google-logo.png';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
 import { ALERT_STATES } from '../reducers/alertReducer';
-import { clearAlert, showAlert } from '../actions/alertActions';
+import { showAlert } from '../actions/alertActions';
 import { googleOAuthLogin } from '../actions/googleOauthActions';
 const clientId =
 	'143814432776-d52d5uapdbufmmt0epop4upk71g4fghi.apps.googleusercontent.com';
@@ -50,23 +49,28 @@ const useStyles = makeStyles((theme) => ({
 	}
 }));
 
-function Login({ googleOAuthLogin, showAlert }) {
+function Login() {
 	const classes = useStyles();
+	const dispatch = useDispatch();
 	/*Wrapper for our Oauth actions
   so we can call the alert at the appropriate time */
 	const onSuccess = (res) => {
-		googleOAuthLogin(res);
-		showAlert({
-			message: 'Successfully logged in',
-			severity: ALERT_STATES.success
-		});
+		dispatch(googleOAuthLogin(res));
+		dispatch(
+			showAlert({
+				message: 'Successfully logged in',
+				severity: ALERT_STATES.success
+			})
+		);
 	};
 	const onFailure = (res) => {
-		googleOAuthLogin(res);
-		showAlert({
-			message: 'Login failed ',
-			severity: ALERT_STATES.error
-		});
+		dispatch(googleOAuthLogin(res));
+		dispatch(
+			showAlert({
+				message: 'Login failed ',
+				severity: ALERT_STATES.error
+			})
+		);
 	};
 
 	const { signIn } = useGoogleLogin({
@@ -88,17 +92,4 @@ function Login({ googleOAuthLogin, showAlert }) {
 	);
 }
 
-function mapStateToProps(state, ownProps) {
-	//Here you can get whatever the component needs from redux store...
-	console.log({ state });
-	return { auth: state.auth };
-}
-
-function mapDispatchToProps(dispatch) {
-	return bindActionCreators(
-		{ clearAlert, showAlert, googleOAuthLogin },
-		dispatch
-	);
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default Login;

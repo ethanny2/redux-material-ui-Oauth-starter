@@ -5,13 +5,11 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { useGoogleLogout } from 'react-google-login';
+import { useDispatch } from 'react-redux';
 import googleLogo from '../images/google-logo.png';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
 import { ALERT_STATES } from '../reducers/alertReducer';
-import { clearAlert, showAlert } from '../actions/alertActions';
+import { showAlert } from '../actions/alertActions';
 import { googleOAuthLogout } from '../actions/googleOauthActions';
-import Switch from '@material-ui/core/Switch';
 const clientId =
 	'143814432776-d52d5uapdbufmmt0epop4upk71g4fghi.apps.googleusercontent.com';
 
@@ -51,23 +49,28 @@ const useStyles = makeStyles((theme) => ({
 	}
 }));
 
-function Logout({ googleOAuthLogout, showAlert }) {
+function Logout() {
 	const classes = useStyles();
+	const dispatch = useDispatch();
 	/*Wrapper for our Oauth actions
   so we can call the alert at the appropriate time */
 	const onSuccess = (res) => {
-		googleOAuthLogout(res);
-		showAlert({
-			message: 'Successfully logged out in',
-			severity: ALERT_STATES.success
-		});
+		dispatch(googleOAuthLogout(res));
+		dispatch(
+			showAlert({
+				message: 'Successfully logged out in',
+				severity: ALERT_STATES.success
+			})
+		);
 	};
 	const onFailure = (res) => {
-		googleOAuthLogout(res);
-		showAlert({
-			message: 'Logout failed ',
-			severity: ALERT_STATES.error
-		});
+		dispatch(googleOAuthLogout(res));
+		dispatch(
+			showAlert({
+				message: 'Logout failed ',
+				severity: ALERT_STATES.error
+			})
+		);
 	};
 
 	const { signOut } = useGoogleLogout({
@@ -79,17 +82,6 @@ function Logout({ googleOAuthLogout, showAlert }) {
 
 	return (
 		<Container component='section' className={classes.center}>
-		
-			{/* <Switch
-				color='primary'
-				checked={false}
-				onChange={() => {
-					console.log('Please work');
-				}}
-				inputProps={{ 'aria-label': 'primary checkbox' }}
-
-				name='themeToggle'
-			/> */}
 			<Button className={classes.button} onClick={signOut}>
 				<Avatar src={googleLogo} className={classes.avatar} />
 				<Typography component='p' variant='h6' className={classes.text}>
@@ -100,17 +92,4 @@ function Logout({ googleOAuthLogout, showAlert }) {
 	);
 }
 
-function mapStateToProps(state, ownProps) {
-	//Here you can get whatever the component needs from redux store...
-	console.log({ state });
-	return { auth: state.auth };
-}
-
-function mapDispatchToProps(dispatch) {
-	return bindActionCreators(
-		{ clearAlert, showAlert, googleOAuthLogout },
-		dispatch
-	);
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Logout);
+export default Logout;

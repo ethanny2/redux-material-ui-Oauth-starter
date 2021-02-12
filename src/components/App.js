@@ -1,5 +1,5 @@
 import { makeStyles } from '@material-ui/core/styles';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import NavBar from './NavBar';
 import Alert from './Alert';
 import Login from './Login';
@@ -36,7 +36,7 @@ const useStyles = makeStyles({
 			margin: 0,
 			padding: 0,
 			height: '100%',
-			width: '100%',
+			width: '100%'
 		},
 		'*, *:before, *:after': {
 			boxSizing: 'inherit'
@@ -48,8 +48,9 @@ const useStyles = makeStyles({
 	}
 });
 
-function App({ auth }) {
+function App() {
 	const classes = useStyles();
+	const auth = useSelector((state) => state.auth);
 	return (
 		<ThemeProvider>
 			<CssBaseline />
@@ -62,9 +63,4 @@ function App({ auth }) {
 	);
 }
 
-function mapStateToProps(state, ownProps) {
-	//Here you can get whatever the component needs from redux store...
-	return { auth: state.auth };
-}
-
-export default connect(mapStateToProps, {})(App);
+export default App;
