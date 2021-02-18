@@ -11,7 +11,7 @@ import { ALERT_STATES } from '../reducers/alertReducer';
 import { showAlert } from '../actions/alertActions';
 import { googleOAuthLogin } from '../actions/googleOauthActions';
 const clientId =
-	'143814432776-d52d5uapdbufmmt0epop4upk71g4fghi.apps.googleusercontent.com';
+	'775972216962-1jeavqdd1brclco54nal4dmc753semvo.apps.googleusercontent.com';
 
 const useStyles = makeStyles((theme) => ({
 	center: {
