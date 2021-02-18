@@ -11,10 +11,9 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import Switch from '@material-ui/core/Switch';
-import { bindActionCreators } from 'redux';
 import { toggleTheme } from '../actions/themeActions';
+import { useDispatch, useSelector } from 'react-redux';
 import MoreIcon from '@material-ui/icons/MoreVert';
-import { connect } from 'react-redux';
 
 const useStyles = makeStyles((theme) => ({
 	grow: {
@@ -56,12 +55,14 @@ const useStyles = makeStyles((theme) => ({
 	}
 }));
 
-const NavBar = ({ auth, theme, toggleTheme }) => {
+const NavBar = () => {
 	const classes = useStyles();
 	/* Should hold reference to DOM element, set anchorEl when
   menu is clicked open. Different menus for desktop and mobile*/
 	const [anchorEl, setAnchorEl] = React.useState(null);
 	const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
+	const dispatch = useDispatch();
+	const { auth, theme } = useSelector((state) => state);
 	/*
     Coersion to force the null value to false and any DOM
     element to true. Used in place of putting the state
@@ -85,10 +86,6 @@ const NavBar = ({ auth, theme, toggleTheme }) => {
 	};
 	const handleMobileMenuClose = () => {
 		setMobileMoreAnchorEl(null);
-	};
-	const handleToggleChange = () => {
-		console.log('CALLING TOGGLE THEME WITH DISPATCH');
-		toggleTheme();
 	};
 
 	const menuId = 'primary-search-account-menu';
@@ -152,7 +149,7 @@ const NavBar = ({ auth, theme, toggleTheme }) => {
 					<Switch
 						color='default'
 						checked={theme.palette.type === 'dark'}
-						onChange={handleToggleChange}
+						onChange={() => dispatch(toggleTheme())}
 						inputProps={{ 'aria-label': 'primary checkbox' }}
 						name='themeToggle'
 					></Switch>
@@ -183,7 +180,7 @@ const NavBar = ({ auth, theme, toggleTheme }) => {
 									<Switch
 										color='default'
 										checked={theme.palette.type === 'dark'}
-										onChange={handleToggleChange}
+										onChange={() => dispatch(toggleTheme())}
 										inputProps={{ 'aria-label': 'primary checkbox' }}
 										name='themeToggle'
 									></Switch>
@@ -253,13 +250,4 @@ const NavBar = ({ auth, theme, toggleTheme }) => {
 	);
 };
 
-function mapStateToProps(state, ownProps) {
-	//Here you can get whatever the component needs from redux store...
-	return { auth: state.auth, theme: state.theme };
-}
-
-function mapDispatchToProps(dispatch) {
-	return bindActionCreators({ toggleTheme }, dispatch);
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(NavBar);
+export default NavBar;

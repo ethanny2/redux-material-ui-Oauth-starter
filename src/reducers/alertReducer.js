@@ -27,7 +27,6 @@ const alertReducer = (state = INITIAL_STATE, action) => {
        action.payload looks like
         {message:'', severity: ''}
       */
-			console.log('IN REDUCER FOR SHOW ALERT');
 			return { ...state, open: true, ...action.payload };
 		case CLEAR_ALERT:
 			return { ...INITIAL_STATE };

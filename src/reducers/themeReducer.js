@@ -21,9 +21,9 @@ const LIGHT_MODE_STATE = createMuiTheme({
 });
 const DARK_MODE_STATE = createMuiTheme({
 	palette: {
-		type: 'dark', 
+		type: 'dark',
 		primary: {
-			main: '#000', 
+			main: '#000',
 			contrastText: '#fff'
 		}
 	}
@@ -35,7 +35,6 @@ matched
 	? (INITIAL_STATE = { ...DARK_MODE_STATE })
 	: (INITIAL_STATE = { ...LIGHT_MODE_STATE });
 
-/*What up with this one need to debug */
 const themeReducer = (state = INITIAL_STATE, action) => {
 	switch (action.type) {
 		case TOGGLE_THEME:

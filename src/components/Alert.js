@@ -10,7 +10,6 @@ const Alert = () => {
 	/*Replaces mapDispatchToProps */
 	const dispatch = useDispatch();
 	const handleClose = () => dispatch(clearAlert());
-	console.log(alert);
 	return (
 		<Snackbar
 			{...alert}
