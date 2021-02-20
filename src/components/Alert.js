@@ -15,14 +15,14 @@ const Alert = () => {
 			{...alert}
 			onClose={handleClose}
 			action={
-					<IconButton
-						size='small'
-						aria-label='close'
-						color='inherit'
-						onClick={handleClose}
-					>
-						<CloseIcon fontSize='small' />
-					</IconButton>
+				<IconButton
+					size='small'
+					aria-label='close'
+					color='inherit'
+					onClick={handleClose}
+				>
+					<CloseIcon fontSize='small' />
+				</IconButton>
 			}
 		/>
 	);

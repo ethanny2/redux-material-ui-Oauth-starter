@@ -51,13 +51,12 @@ const useStyles = makeStyles((theme) => ({
 function Login() {
 	const classes = useStyles();
 	const dispatch = useDispatch();
-	/*Wrapper for our Oauth actions
-  so we can call the alert at the appropriate time */
+
 	const onSuccess = (res) => {
 		dispatch(googleOAuthLogin(res));
 		dispatch(
 			showAlert({
-				message: 'Successfully logged in',
+				message: 'Successfully logged in'
 			})
 		);
 	};
@@ -65,7 +64,7 @@ function Login() {
 		dispatch(googleOAuthLogin(res));
 		dispatch(
 			showAlert({
-				message: 'Login failed ',
+				message: 'Login failed '
 			})
 		);
 	};

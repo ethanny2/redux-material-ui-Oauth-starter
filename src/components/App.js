@@ -8,22 +8,10 @@ import ThemeProvider from './ThemeProvider';
 import CssBaseline from '@material-ui/core/CssBaseline';
 
 /*
-	Returns JSS styling object; as for theming just sticking with
-	the default Material UI lightmode style sheet
-	https://material-ui.com/customization/default-theme/
-	Also want to add in DARK MODE!!!!
-	https://material-ui.com/customization/palette/
 	Spacing 8px per unit
 	https://material-ui.com/customization/components/
 	More on CSS baseline 
 	https://material-ui.com/components/css-baseline/
-	Type dark on the theme only changes these properties
-	palette.text
-	palette.divider
-	palette.background
-	palette.action
-	So using theme.palette.primary.main or any others
-	will not see any change when type is switched to dark
 */
 const useStyles = makeStyles({
 	root: {

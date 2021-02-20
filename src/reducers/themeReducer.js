@@ -38,8 +38,10 @@ matched
 const themeReducer = (state = INITIAL_STATE, action) => {
 	switch (action.type) {
 		case TOGGLE_THEME:
-			//There is no payload we just replace the theme obj/state with the
-			//opposite of whatever type is
+			/*
+				There is no payload we just replace the theme obj/state with the
+				opposite of whatever type is
+			*/
 			return state.palette.type === 'light'
 				? { ...DARK_MODE_STATE }
 				: { ...LIGHT_MODE_STATE };

@@ -51,13 +51,12 @@ const useStyles = makeStyles((theme) => ({
 function Logout() {
 	const classes = useStyles();
 	const dispatch = useDispatch();
-	/*Wrapper for our Oauth actions
-  so we can call the alert at the appropriate time */
+
 	const onSuccess = (res) => {
 		dispatch(googleOAuthLogout(res));
 		dispatch(
 			showAlert({
-				message: 'Successfully logged out in',
+				message: 'Successfully logged out in'
 			})
 		);
 	};
@@ -65,7 +64,7 @@ function Logout() {
 		dispatch(googleOAuthLogout(res));
 		dispatch(
 			showAlert({
-				message: 'Logout failed ',
+				message: 'Logout failed '
 			})
 		);
 	};

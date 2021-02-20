@@ -58,7 +58,7 @@ const useStyles = makeStyles((theme) => ({
 const NavBar = () => {
 	const classes = useStyles();
 	/* Should hold reference to DOM element, set anchorEl when
-  menu is clicked open. Different menus for desktop and mobile*/
+  menu is clicked open.*/
 	const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 	const dispatch = useDispatch();
 	const { auth, theme } = useSelector((state) => state);
@@ -91,7 +91,6 @@ const NavBar = () => {
 			open={isMobileMenuOpen}
 			onClose={handleMobileMenuClose}
 		>
-			{/* Change here if you want to link to other resoruces! */}
 			<MenuItem>
 				<IconButton aria-label='show 1 new mails' color='inherit'>
 					<Badge badgeContent={1} color='secondary'>
@@ -146,7 +145,6 @@ const NavBar = () => {
           */}
 					<div className={classes.grow} />
 					<div className={classes.sectionDesktop}>
-						{/* Change here if you want to link to other resoruces! */}
 						{auth.user ? (
 							<>
 								{/* On is dark mode off is light */}
@@ -213,9 +211,6 @@ const NavBar = () => {
 					</div>
 				</Toolbar>
 			</AppBar>
-			{/* These are not rendered till anchorEl is set, which only happens
-      after the menu button is clicked. Both menus are controlled by media
-      queries so only one version (desktop or mobile) is displayed at once */}
 			{renderMobileMenu}
 		</header>
 	);
