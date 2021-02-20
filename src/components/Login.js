@@ -7,7 +7,6 @@ import Container from '@material-ui/core/Container';
 import { useGoogleLogin } from 'react-google-login';
 import { useDispatch } from 'react-redux';
 import googleLogo from '../images/google-logo.png';
-import { ALERT_STATES } from '../reducers/alertReducer';
 import { showAlert } from '../actions/alertActions';
 import { googleOAuthLogin } from '../actions/googleOauthActions';
 const clientId =
@@ -59,7 +58,6 @@ function Login() {
 		dispatch(
 			showAlert({
 				message: 'Successfully logged in',
-				severity: ALERT_STATES.success
 			})
 		);
 	};
@@ -68,7 +66,6 @@ function Login() {
 		dispatch(
 			showAlert({
 				message: 'Login failed ',
-				severity: ALERT_STATES.error
 			})
 		);
 	};

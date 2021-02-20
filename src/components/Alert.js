@@ -15,7 +15,6 @@ const Alert = () => {
 			{...alert}
 			onClose={handleClose}
 			action={
-				<React.Fragment>
 					<IconButton
 						size='small'
 						aria-label='close'
@@ -24,7 +23,6 @@ const Alert = () => {
 					>
 						<CloseIcon fontSize='small' />
 					</IconButton>
-				</React.Fragment>
 			}
 		/>
 	);
