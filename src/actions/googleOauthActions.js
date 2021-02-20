@@ -13,7 +13,7 @@ export const googleOAuthLogin = (response) => {
 	return action;
 };
 
-export const googleOAuthLogout = (response) => {
+export const googleOAuthLogout = () => {
 	const action = { type: SIGN_OUT };
 	return action;
 };
