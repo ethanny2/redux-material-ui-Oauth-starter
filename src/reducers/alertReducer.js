@@ -1,5 +1,4 @@
 import { SHOW_ALERT, CLEAR_ALERT } from '../types';
-import Grow from '@material-ui/core/Grow';
 
 
 /* Matches props of  <Snackbar /> component from Material UI*/
@@ -7,7 +6,6 @@ const INITIAL_STATE = {
 	open: false,
 	message: '',
 	anchorOrigin: { vertical: 'top', horizontal: 'center' },
-	TransitionComponent: Grow,
 	autoHideDuration: 3500
 };
 
