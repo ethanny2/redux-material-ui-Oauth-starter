@@ -59,7 +59,6 @@ const NavBar = () => {
 	const classes = useStyles();
 	/* Should hold reference to DOM element, set anchorEl when
   menu is clicked open. Different menus for desktop and mobile*/
-	const [anchorEl, setAnchorEl] = React.useState(null);
 	const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 	const dispatch = useDispatch();
 	const { auth, theme } = useSelector((state) => state);
@@ -70,40 +69,15 @@ const NavBar = () => {
     When the state setters are called for the anchorEls the component re-renders
     and the boolean values are re-evaluated 
   */
-	const isMenuOpen = Boolean(anchorEl);
 	const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
 	/*The anchor pieces of state need to either be null or have a DOM element */
-	const handleProfileMenuOpen = (event) => {
-		setAnchorEl(event.currentTarget);
-	};
-	const handleMenuClose = () => {
-		setAnchorEl(null);
-		handleMobileMenuClose();
-	};
 	const handleMobileMenuOpen = (event) => {
 		setMobileMoreAnchorEl(event.currentTarget);
 	};
 	const handleMobileMenuClose = () => {
 		setMobileMoreAnchorEl(null);
 	};
-
-	const menuId = 'primary-search-account-menu';
-
-	const renderMenu = (
-		<Menu
-			anchorEl={anchorEl}
-			anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-			id={menuId}
-			keepMounted
-			transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-			open={isMenuOpen}
-			onClose={handleMenuClose}
-		>
-			{/* Change here if you want to link to other resoruces! */}
-			<MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-		</Menu>
-	);
 
 	const mobileMenuId = 'primary-search-account-menu-mobile';
 	/*Need to add switch in here */
@@ -202,9 +176,7 @@ const NavBar = () => {
 								<IconButton
 									edge='end'
 									aria-label='account of current user'
-									aria-controls={menuId}
 									aria-haspopup='true'
-									onClick={handleProfileMenuOpen}
 									color='inherit'
 								>
 									<div className={classes.imageContainer}>
@@ -245,7 +217,6 @@ const NavBar = () => {
       after the menu button is clicked. Both menus are controlled by media
       queries so only one version (desktop or mobile) is displayed at once */}
 			{renderMobileMenu}
-			{renderMenu}
 		</header>
 	);
 };
