@@ -18,8 +18,8 @@
 
 ## Features
 
-(Tutorial Series Coming soon!)
-
+[Live Site Here!](https://redux-oauth.netlify.app/)
+[Tuorial Series here!](https://dev.to/ethanny2/let-s-make-a-redux-material-ui-oauth-starter-template-pt-1-what-s-oauth-479j)
 #### 1) Google Oauth authentication
 
 - If you want to use Google services on behalf of a user (ex: You need the authenetication to interact with their Google photos API)
