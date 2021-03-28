@@ -2,6 +2,8 @@
 
 # Redux + Material UI + GoogleOauth Starter
 
+## [https://redux-oauth.netlify.app/](https://redux-oauth.netlify.app/)
+
 #### A starter template to help boostrap projects quickly with a reliable authentication solution
 
 <p align="center">
@@ -18,7 +20,7 @@
 
 ## Features
 
-[Live Site Here!](https://redux-oauth.netlify.app/)
+
 [Tuorial Series here!](https://dev.to/ethanny2/let-s-make-a-redux-material-ui-oauth-starter-template-pt-1-what-s-oauth-479j)
 #### 1) Google Oauth authentication
 
